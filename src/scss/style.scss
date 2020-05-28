@@ -1,0 +1,19 @@
+h1 {
+  color: red;
+}
+
+.container {
+  margin: 1.5rem 3rem;
+}
+
+table {
+  display: grid;
+  border-collapse: collapse;
+  min-width: 100%;
+}
+
+thead,
+tbody,
+tr {
+  display: contents;
+}

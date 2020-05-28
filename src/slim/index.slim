@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title Slim Examples
+    meta name="keywords" content="template language"
+    link rel="stylesheet" href="./css/style.css"
+
+  body
+
+    / - columns = ["name", 'typeOfLoan', "attorney", 'dateOpened', "actualCLosingDate","}status"]
+    - columns = [{name: "name"},{name: "typeOfLoan"} ,{name: "attorney"} ,{name: "dateOpened"} ,{name: "actualCLosingDate"} ,{name: "status", toRight: true}]
+    - report = {groupTitle: "Test Brower", total: 3, matters: [{name: 'matter name', typeOfLoan: 'agency', attorney: 'tt', dateOpened: '05/14/2020', actualCLosingDate: '05/14/2020', status: 'active' }, {name: 'matter name', typeOfLoan: 'agency', attorney: 'tt', dateOpened: '05/14/2020', actualCLosingDate: '05/14/2020', status: 'active' }, {name: 'matter name', typeOfLoan: 'agency', attorney: 'tt', dateOpened: '05/14/2020', actualCLosingDate: '05/14/2020', status: 'active' }]}
+
+
+    .container
+      table style="grid-template-columns: repeat(#{columns.count}, auto);"
+        thead
+          tr
+            - columns.each do |column|
+              th
+                = column[:name]
+
+      table
+        tbody
+          tr
+            td
+              =report[:groupTitle]
+
+      table style="grid-template-columns: repeat(#{columns.count}, auto);"
+        tbody
+          - report[:matters].each do |matter|
+            tr
+              -columns.each do |column|
+                td class="#{column[:toRight] && 'right'}"
+                  = matter[:"#{column[:name]}"]
+
