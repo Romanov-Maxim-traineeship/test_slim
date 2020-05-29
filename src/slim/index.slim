@@ -1,36 +1,69 @@
 doctype html
 html
   head
-    title Slim Examples
+    title PDF Slim Template
     meta name="keywords" content="template language"
     link rel="stylesheet" href="./css/style.css"
 
   body
-
-    / - columns = ["name", 'typeOfLoan', "attorney", 'dateOpened', "actualCLosingDate","}status"]
-    - columns = [{name: "name"},{name: "typeOfLoan"} ,{name: "attorney"} ,{name: "dateOpened"} ,{name: "actualCLosingDate"} ,{name: "status", toRight: true}]
-    - report = {groupTitle: "Test Brower", total: 3, matters: [{name: 'matter name', typeOfLoan: 'agency', attorney: 'tt', dateOpened: '05/14/2020', actualCLosingDate: '05/14/2020', status: 'active' }, {name: 'matter name', typeOfLoan: 'agency', attorney: 'tt', dateOpened: '05/14/2020', actualCLosingDate: '05/14/2020', status: 'active' }, {name: 'matter name', typeOfLoan: 'agency', attorney: 'tt', dateOpened: '05/14/2020', actualCLosingDate: '05/14/2020', status: 'active' }]}
+    - columns = [{size: {min: '150px', max: '1fr'}, name: "name"},{size: {min: '150px', max: '1fr'}, name: "number", toRight: true},{size: {min: '150px', max: '1fr'}, name: "typeOfLoan"} ,{size: {min: '150px', max: '1fr'}, name: "attorney"} ,{size: {min: '150px', max: '1fr'}, name: "dateOpened"} ,{size: {min: '150px', max: '1fr'}, name: "actualCLosingDate"} ,{size: {min: '150px', max: '1fr'}, name: "status", toRight: true}]
+    - report = {grandTotals: 24, groupTitle: "Test Brower", total: 3, matters: [{name: 'matter name', number: '23', typeOfLoan: 'agency', attorney: 'tt', dateOpened: '05/14/2020', actualCLosingDate: '05/14/2020', status: 'active' }, {name: 'matter name', number: '23', typeOfLoan: 'agency', attorney: 'tt', dateOpened: '05/14/2020', actualCLosingDate: '05/14/2020', status: 'active' }, {name: 'matter name', number: '23', typeOfLoan: 'agency', attorney: 'tt', dateOpened: '05/14/2020', actualCLosingDate: '05/14/2020', status: 'active' }, {name: 'matter name', number: '23', typeOfLoan: 'agency', attorney: 'tt', dateOpened: '05/14/2020', actualCLosingDate: '05/14/2020', status: 'active' }, {name: 'matter name', number: '23', typeOfLoan: 'agency', attorney: 'tt', dateOpened: '05/14/2020', actualCLosingDate: '05/14/2020', status: 'active' }, {name: 'matter name', number: '23', typeOfLoan: 'agency', attorney: 'tt', dateOpened: '05/14/2020', actualCLosingDate: '05/14/2020', status: 'active' }]}
 
 
     .container
+      h1.title
+        | CMBS Pipeline title
+
       table style="grid-template-columns: repeat(#{columns.count}, auto);"
+        tbody
+          tr
+            td class="cell"
+              => "Filtered By:"
+            td style="grid-column: 2/#{columns.count + 1};" class="cell"
+              div.info
+                span.info_block
+                  | show: All opportunities
+                span.info_block
+                  | status equals Active
+                span.info_block
+                  | AND Type of Transactions equals CMBS
+
+          tr
+            td class="cell"
+              => "Sorted By:"
+            td style="grid-column: 2/#{columns.count + 1};" class="cell"
+              | Account Name: - sorted ascending
+
         thead
           tr
             - columns.each do |column|
-              th
+              th class="cell #{column[:toRight] && 'right'}"
                 = column[:name]
 
-      table
         tbody
           tr
-            td
-              =report[:groupTitle]
+            td style="grid-column: 1/#{columns.count + 1};" class="group_cell"
+              span.big
+                => 'Account Name:'
+              => "#{report[:groupTitle]}"
+              span.big
+                = "(#{report[:total]} records)"
 
-      table style="grid-template-columns: repeat(#{columns.count}, auto);"
-        tbody
           - report[:matters].each do |matter|
             tr
               -columns.each do |column|
-                td class="#{column[:toRight] && 'right'}"
+                td class="cell #{column[:toRight] && 'right'}"
                   = matter[:"#{column[:name]}"]
 
+
+          tr
+            td style="grid-column: 1/#{columns.count + 1};" class="group_cell total"
+              span.big
+                => "Grand Totals: (#{report[:grandTotals]} records)"
+
+
+      .copiright
+        span
+          | Confidential Information - Do Not Distribute
+        span
+          | Copiright (c) 2000 - 2020 test.com

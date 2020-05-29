@@ -1,9 +1,15 @@
-h1 {
-  color: red;
-}
-
 .container {
   margin: 1.5rem 3rem;
+
+  font-family: sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+h1.title {
+  font-size: 21px;
+  font-weight: 500;
+  padding: 0 1rem;
 }
 
 table {
@@ -16,4 +22,65 @@ thead,
 tbody,
 tr {
   display: contents;
+}
+
+// tr:nth-child(even) td {
+//   background: #f8f6ff;
+// }
+
+.cell {
+  padding: 1rem;
+  text-align: left;
+}
+
+thead .cell {
+  background-color: #AAAAFD;
+}
+
+tbody .group_cell {
+  background-color: #AAAAFD;
+  padding: 1rem 1rem 2rem;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.info_block {
+  padding: 0.25em 0;
+}
+
+.info_block:first-child {
+  padding-top: 0;
+}
+
+.info_block:last-child {
+  padding-bottom: 0;
+}
+
+.copiright {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+}
+
+.copiright span {
+  padding-bottom: 0.25em;
+}
+
+.copiright span:last-child {
+  padding-bottom: 0;
+}
+
+.right {
+  text-align: right;
+}
+
+.big {
+  font-weight: 600;
+}
+
+.total {
+  background-color: #AAAACC !important;
 }
